@@ -1,0 +1,27 @@
+version: "3.7"
+services:
+  app:
+    build: .
+    container_name: "url-shortener-api"
+    ports:
+      - "8080:8080"
+  postgres:
+    image: postgres:latest
+    container_name: "url-shortener-postgres"
+    environment:
+      POSTGRES_USERNAME: postgres
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: UrlShortener
+    ports:
+      - "5432:5432"
+  redis:
+    image: redis
+    container_name: redis-url-api
+    ports:
+      - "6379:6379"
+  frontend:
+    image: url-shortener-ui
+    container_name: url-shortener-frontend
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
